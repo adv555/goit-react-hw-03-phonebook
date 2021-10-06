@@ -49,13 +49,30 @@ class App extends Component {
     });
   };
 
-  getFilterContacts = () => {
+  getFilterContacts() {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter),
-    );
+    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+  }
+
+  componentDidMount() {
+    // console.log('app component did Mount');
+    const contacts = localStorage.getItem('contacts');
+    const parseContacts = JSON.parse(contacts);
+
+    // console.log(parseContacts);
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts });
+    }
+  }
+  componentDidUpdate = (prevProps, prevState) => {
+    // console.log('app component did Update');
+    // console.log(prevState, this.state);
+
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
   };
 
   render() {
@@ -64,6 +81,7 @@ class App extends Component {
     const { filter } = this.state;
     const changeFilterValue = this.changeFilter;
     const visibleContact = this.getFilterContacts();
+    console.log('Render');
 
     return (
       <div className="App">
@@ -72,10 +90,7 @@ class App extends Component {
         </Header>
         <Section title={'Contacts'}>
           <Form onSubmit={addContact} />
-          <ContactList
-            contacts={visibleContact}
-            onDeleteContact={deleteContact}
-          />
+          <ContactList contacts={visibleContact} onDeleteContact={deleteContact} />
         </Section>
       </div>
     );

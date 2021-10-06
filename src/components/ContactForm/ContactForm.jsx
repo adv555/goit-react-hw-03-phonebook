@@ -38,7 +38,7 @@ class Form extends Component {
 
     return (
       <form className={s.Form} onSubmit={setContact}>
-        <div className={s.group}>
+        <div className={s.Group}>
           <input
             type="text"
             name="name"
@@ -53,7 +53,7 @@ class Form extends Component {
           <div className="bar"></div>
         </div>
 
-        <div className={s.group}>
+        <div className={s.Group}>
           <input
             type="tel"
             name="number"
