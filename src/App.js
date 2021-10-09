@@ -19,11 +19,6 @@ class App extends Component {
   };
 
   addContact = (name, number) => {
-    // setTimeout(() => {
-    // console.log(name, number);
-    // }, 1000);
-    // console.log(this.state.contacts);
-
     const contact = {
       id: shortid.generate(),
       name,
@@ -81,7 +76,6 @@ class App extends Component {
     const { filter } = this.state;
     const changeFilterValue = this.changeFilter;
     const visibleContact = this.getFilterContacts();
-    console.log('Render');
 
     return (
       <div className="App">
